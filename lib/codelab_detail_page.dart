@@ -18,11 +18,22 @@ class _CodelabDetailPageState extends State<CodelabDetailPage> {
     final int id = widget.id;
     final data = codelabRepository.get(id);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(data.title),
-      ),
-      body: Text(data.introduction),
-    );
+        appBar: AppBar(
+          title: Text("Detail"),
+        ),
+        body: Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(data.title,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                  textAlign: TextAlign.left),
+              SizedBox(height: 8),
+              Text(data.introduction),
+            ],
+          ),
+        ));
   }
 }
 
