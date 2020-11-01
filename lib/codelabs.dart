@@ -26,10 +26,8 @@ class _CodelabsState extends State<Codelabs> {
             return Divider();
           }
           final int index = i ~/ 2;
-          // If you've reached the end of the available word
-          // pairings...
           if (index >= _codelabs.length) {
-            _codelabs.addAll(codelabRepository.get());
+            _codelabs.addAll(codelabRepository.get(index));
           }
           return _buildRow(_codelabs[index]);
         });
