@@ -1,3 +1,4 @@
+import 'package:codelab_meister/codelab_detail_page.dart';
 import 'package:codelab_meister/domain/codelab.dart';
 import 'package:codelab_meister/repository/codelab_repository.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,6 @@ class _CodelabsState extends State<Codelabs> {
         color: alreadyCompleted ? Colors.green : null,
       ),
       onTap: () {
-        // NEW lines from here...
         setState(() {
           if (alreadyCompleted) {
             codelabRepository.updateUnCompleted(codelab);
@@ -55,6 +55,13 @@ class _CodelabsState extends State<Codelabs> {
           }
         });
       },
+      onLongPress: () {
+        _showDetailPage();
+      },
     );
+  }
+
+  void _showDetailPage() {
+    Navigator.of(context).push(CodelabDetailPageRoute().get());
   }
 }
