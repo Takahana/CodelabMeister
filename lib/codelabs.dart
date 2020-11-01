@@ -27,18 +27,34 @@ class _CodelabsState extends State<Codelabs> {
           }
           final int index = i ~/ 2;
           if (index >= _codelabs.length) {
-            _codelabs.addAll(codelabRepository.get(index));
+            _codelabs.addAll(codelabRepository.getAll(index));
           }
           return _buildRow(_codelabs[index]);
         });
   }
 
   Widget _buildRow(Codelab codelab) {
+    final alreadyCompleted =
+        codelabRepository.getAllCompleted().contains(codelab);
     return ListTile(
       title: Text(
         codelab.title,
         style: _biggerFont,
       ),
+      trailing: Icon(
+        alreadyCompleted ? Icons.check_circle : Icons.check_circle_outline,
+        color: alreadyCompleted ? Colors.green : null,
+      ),
+      onTap: () {
+        // NEW lines from here...
+        setState(() {
+          if (alreadyCompleted) {
+            codelabRepository.updateUnCompleted(codelab);
+          } else {
+            codelabRepository.updateCompleted(codelab);
+          }
+        });
+      },
     );
   }
 }

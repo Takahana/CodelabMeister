@@ -1,12 +1,22 @@
 import 'package:codelab_meister/domain/codelab.dart';
+import 'package:codelab_meister/store/codelab_store.dart';
 
 class CodelabRepository {
-  List<Codelab> get(int offset) {
-    final List<Codelab> codelabs = [];
+  CodelabStore _store = CodelabStore();
 
-    for (int i = 1; i <= 10; i++) {
-      codelabs.add(Codelab("Write your first Flutter app, part ${i + offset}"));
-    }
-    return codelabs;
+  List<Codelab> getAll(int offset) {
+    return _store.getAll(offset);
+  }
+
+  Set<Codelab> getAllCompleted() {
+    return _store.completed;
+  }
+
+  void updateCompleted(Codelab codelab) {
+    _store.completed.add(codelab);
+  }
+
+  void updateUnCompleted(Codelab codelab) {
+    _store.completed.remove(codelab);
   }
 }
