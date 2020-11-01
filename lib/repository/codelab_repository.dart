@@ -4,6 +4,10 @@ import 'package:codelab_meister/store/codelab_store.dart';
 class CodelabRepository {
   CodelabStore _store = CodelabStore();
 
+  Codelab get(int id) {
+    return _store.getAll().firstWhere((element) => element.id == id);
+  }
+
   List<Codelab> getAll() {
     return _store.getAll();
   }

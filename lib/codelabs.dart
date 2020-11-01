@@ -13,6 +13,7 @@ class _CodelabsState extends State<Codelabs> {
   final TextStyle _biggerFont = const TextStyle(fontSize: 18);
 
   final codelabRepository = CodelabRepository();
+  final codelabDetailRageRoute = CodelabDetailPageRoute();
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +56,12 @@ class _CodelabsState extends State<Codelabs> {
         });
       },
       onLongPress: () {
-        _showDetailPage();
+        _showDetailPage(codelab.id);
       },
     );
   }
 
-  void _showDetailPage() {
-    Navigator.of(context).push(CodelabDetailPageRoute().get());
+  void _showDetailPage(int id) {
+    Navigator.of(context).push(codelabDetailRageRoute.get(id));
   }
 }
