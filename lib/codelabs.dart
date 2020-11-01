@@ -9,7 +9,7 @@ class Codelabs extends StatefulWidget {
 }
 
 class _CodelabsState extends State<Codelabs> {
-  final List<Codelab> _codelabs = <Codelab>[];
+  List<Codelab> _codelabs;
   final TextStyle _biggerFont = const TextStyle(fontSize: 18);
 
   final codelabRepository = CodelabRepository();
@@ -20,16 +20,15 @@ class _CodelabsState extends State<Codelabs> {
   }
 
   Widget _buildCodelabs() {
+    _codelabs = codelabRepository.getAll();
     return ListView.builder(
+        itemCount: _codelabs.length * 2,
         padding: const EdgeInsets.all(16),
         itemBuilder: (BuildContext _context, int i) {
           if (i.isOdd) {
             return Divider();
           }
           final int index = i ~/ 2;
-          if (index >= _codelabs.length) {
-            _codelabs.addAll(codelabRepository.getAll(index));
-          }
           return _buildRow(_codelabs[index]);
         });
   }

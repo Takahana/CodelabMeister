@@ -4,8 +4,8 @@ import 'package:codelab_meister/store/codelab_store.dart';
 class CodelabRepository {
   CodelabStore _store = CodelabStore();
 
-  List<Codelab> getAll(int offset) {
-    return _store.getAll(offset);
+  List<Codelab> getAll() {
+    return _store.getAll();
   }
 
   Set<Codelab> getAllCompleted() {
