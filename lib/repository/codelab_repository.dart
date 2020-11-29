@@ -1,5 +1,6 @@
 import 'package:codelab_meister/domain/codelab.dart';
 import 'package:codelab_meister/store/codelab_store.dart';
+import 'package:hooks_riverpod/all.dart';
 
 class CodelabRepository {
   CodelabStore _store = CodelabStore();
@@ -24,3 +25,5 @@ class CodelabRepository {
     _store.completed.remove(codelab);
   }
 }
+
+final codelabRepositoryProvider = Provider((_) => CodelabRepository());
