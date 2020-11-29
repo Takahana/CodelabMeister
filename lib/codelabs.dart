@@ -2,6 +2,7 @@ import 'package:codelab_meister/codelab_detail_page.dart';
 import 'package:codelab_meister/domain/codelab.dart';
 import 'package:codelab_meister/repository/codelab_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class Codelabs extends StatefulWidget {
   @override
@@ -10,18 +11,19 @@ class Codelabs extends StatefulWidget {
 
 class _CodelabsState extends State<Codelabs> {
   List<Codelab> _codelabs;
+  CodelabRepository _codelabRepository;
   final TextStyle _biggerFont = const TextStyle(fontSize: 18);
 
-  final codelabRepository = CodelabRepository();
   final codelabDetailRageRoute = CodelabDetailPageRoute();
 
   @override
   Widget build(BuildContext context) {
+    _codelabRepository = context.read(codelabRepositoryProvider);
+    _codelabs = _codelabRepository.getAll();
     return _buildCodelabs();
   }
 
   Widget _buildCodelabs() {
-    _codelabs = codelabRepository.getAll();
     return ListView.builder(
         itemCount: _codelabs.length * 2,
         padding: const EdgeInsets.all(16),
@@ -36,7 +38,7 @@ class _CodelabsState extends State<Codelabs> {
 
   Widget _buildRow(Codelab codelab) {
     final alreadyCompleted =
-        codelabRepository.getAllCompleted().contains(codelab);
+        _codelabRepository.getAllCompleted().contains(codelab);
     return ListTile(
       title: Text(
         codelab.title,
@@ -49,9 +51,9 @@ class _CodelabsState extends State<Codelabs> {
       onTap: () {
         setState(() {
           if (alreadyCompleted) {
-            codelabRepository.updateUnCompleted(codelab);
+            _codelabRepository.updateUnCompleted(codelab);
           } else {
-            codelabRepository.updateCompleted(codelab);
+            _codelabRepository.updateCompleted(codelab);
           }
         });
       },
